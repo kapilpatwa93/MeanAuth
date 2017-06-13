@@ -33,10 +33,20 @@ userSchema.methods.setPassword = function(passoword){
 
 userSchema.methods.validPassword = function (password) {
    return this.hash == password.pbkdf2Sync(password,this.salt,1000,64).toString('hex');
-}
+};
 
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+userSchema.methods.generateJwt = function () {
+  var expiry = new Date();
+  expiry.setDate(expiry.getDate()+7);
+  return jwt.sign({
+    _id : this._id,
+    email : this.email,
+    name : this.first_name + ' ' + this.last_name,
+    exp : parseInt(expiry.getTime()/1000)
+  },'MY_SECRET')
+};
 
-module.exports = router;
+mongoose.model('User',userSchema);
+
+
+
