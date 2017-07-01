@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var crypto = require('crypto');
+var jwt  = require('jsonwebtoken');
 /* GET users listing. */
 
 
@@ -14,11 +15,11 @@ var userSchema = new mongoose.Schema({
   },
   first_name: {
     type : String,
-    unique : true
+    required : true
   },
   last_name: {
     type : String,
-    unique : true
+    required : true
   },
   hash : String,
   salt : String
@@ -32,7 +33,7 @@ userSchema.methods.setPassword = function(passoword){
 };
 
 userSchema.methods.validPassword = function (password) {
-   return this.hash == password.pbkdf2Sync(password,this.salt,1000,64).toString('hex');
+   return this.hash == crypto.pbkdf2Sync(password,this.salt,1000,64).toString('hex');
 };
 
 userSchema.methods.generateJwt = function () {

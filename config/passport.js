@@ -12,7 +12,7 @@ passport.use(new LocalStrategy({
             return done(err)
         }
 
-        if(!iusername){
+        if(!username){
             return done(null,false,{
                 message : "User not found"
             });

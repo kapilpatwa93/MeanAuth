@@ -8,9 +8,10 @@ var auth = jwt({
 });
 
 var ProfileController = require('../controllers/profile');
-
+var AuthController = require('../controllers/authentication');
 router.get('/profile',auth,ProfileController.profileRead);
-
+router.post('/login',AuthController.login);
+router.post('/register',AuthController.register);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
