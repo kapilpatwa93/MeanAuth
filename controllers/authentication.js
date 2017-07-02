@@ -1,7 +1,7 @@
 var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-
+var CustomHelper = require('../common/custom_helpers');
 var sendJsonResponse = function (res,status,content) {
     res.status(status);
     res.json(content);
@@ -25,7 +25,7 @@ module.exports.register = function (req,res) {
     user.setPassword(req.body.password);
     user.save(function (err) {
         if(err){
-            sendJsonResponse(res,401,{
+            CustomHelper.sendJsonResponse(res,401,{
                 "message" : err
             });
             return;

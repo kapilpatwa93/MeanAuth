@@ -7,9 +7,13 @@ var auth = jwt({
   userProperty : 'payload'
 });
 
+
 var ProfileController = require('../controllers/profile');
 var AuthController = require('../controllers/authentication');
 router.get('/profile',auth,ProfileController.profileRead);
+router.post('/profile/edit',auth,ProfileController.editProfile);
+
+
 router.post('/login',AuthController.login);
 router.post('/register',AuthController.register);
 
