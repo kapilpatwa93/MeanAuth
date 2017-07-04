@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var users = require('./models/users');
 var routes = require('./routes/index');
-
+var expressValidator = require('express-validator');
 
 require('./config/passport');
 require('./models/db');
@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(expressValidator());
 
 // app.use('/users', users);
 

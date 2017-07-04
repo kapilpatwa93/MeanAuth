@@ -1,8 +1,22 @@
 var CustomHelper = {};
 var jwt = require('jsonwebtoken');
-CustomHelper.sendJsonResponse = function (res,status,content) {
+CustomHelper.sendJsonResponse = function (res,status,content,success) {
+
+    var response;
+    if(success){
+        response = {
+            success : true,
+            data : content
+        }
+    }else{
+        response = {
+            success : false,
+            message : "Something went wrong"
+        }
+
+    }
     res.status(status);
-    res.json(content);
+    res.json(response);
 
 };
 
